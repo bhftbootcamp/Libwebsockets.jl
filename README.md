@@ -40,7 +40,7 @@ function ws_open(callback::Function, addr::String, port::Int, path::String)
     callback_ptr = @cfunction(ws_callback, Cint, (Ptr{Cvoid}, Cint, Ptr{Cvoid}, Ptr{Cvoid}, Csize_t))
     protocols = [
         LwsProtocols(pointer("ws"), callback_ptr, 0, 0, 0, C_NULL, 0),
-        LwsProtocols()
+        LwsProtocols(C_NULL, C_NULL, 0, 0, 0, C_NULL, 0)
     ]
     user = UserData(callback)
 
@@ -48,7 +48,7 @@ function ws_open(callback::Function, addr::String, port::Int, path::String)
     ctx_info.options = LWS_SERVER_OPTION_DO_SSL_GLOBAL_INIT
     ctx_info.port = CONTEXT_PORT_NO_LISTEN
     ctx_info.user = Base.unsafe_convert(Ptr{UserData}, Ref(user))
-    ctx_info.protocols = Base.unsafe_convert(Ptr{LwsProtocols}, Ref(protocols[1]))
+    ctx_info.protocols = pointer(protocols)
     ws_ctx = lws_create_context(Ref(ctx_info))
 
     conn_info = LwsClientConnectInfo()

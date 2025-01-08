@@ -39,7 +39,12 @@ export Lws,
     LwsTokens,
     LwsVhost,
     LwsWritePassthru,
-    LwsX509Cert
+    LwsX509Cert,
+    LwsSslCtxSt,
+    LwsSystemOpts,
+    LwsRetryBo,
+    LwsDll2,
+    LwsStateNotifyLink
 
 struct LwsContext end
 struct LwsVhost end
@@ -54,6 +59,7 @@ struct LwsSequencer end
 struct LwsSpa end
 struct LwsAc end
 struct LwsX509Cert end
+struct LwsSslCtxSt end
 
 Base.@kwdef mutable struct LwsLogCxUnion
     emit::Ptr{Cvoid} = C_NULL
@@ -105,7 +111,7 @@ Base.@kwdef mutable struct LwsExtension
     client_offer::Ptr{Cchar} = C_NULL
 end
 
-Base.@kwdef mutable struct LwsProtocols
+Base.@kwdef struct LwsProtocols
     name::Ptr{Cchar} = C_NULL
     callback::Ptr{Cvoid} = C_NULL
     per_session_data_size::Csize_t = 0
@@ -176,6 +182,37 @@ Base.@kwdef mutable struct LwsHttpMount
     basic_auth_login_file::Ptr{Cchar} = C_NULL
 end
 
+struct LwsSystemOpts
+    reboot::Ptr{Cvoid}
+    set_clock::Ptr{Cvoid}
+    attach::Ptr{Cvoid}
+    captive_portal_detect_request::Ptr{Cvoid}
+    metric_report::Ptr{Cvoid}
+    jit_trust_query::Ptr{Cvoid}
+    wake_latency_us::UInt32
+end
+
+struct LwsRetryBo
+    retry_ms_table::Ptr{UInt32}
+    retry_ms_table_count::UInt16
+    conceal_count::UInt16
+    secs_since_valid_ping::UInt16
+    secs_since_valid_hangup::UInt16
+    jitter_percent::UInt8
+end
+
+struct LwsDll2
+    prev::Ptr{LwsDll2}
+    next::Ptr{LwsDll2}
+    owner::Ptr{Cvoid} # owner::Ptr{lws_dll2_owner}
+end
+
+struct LwsStateNotifyLink
+    list::LwsDll2
+    notify_cb::Ptr{Cvoid}
+    name::Ptr{Cchar}
+end
+
 Base.@kwdef mutable struct LwsContextCreationInfo
     iface::Ptr{Cchar} = C_NULL
     protocols::Ptr{LwsProtocols} = C_NULL
@@ -194,13 +231,7 @@ Base.@kwdef mutable struct LwsContextCreationInfo
     max_http_header_data2::Cuint = 0
     max_http_header_pool2::Cuint = 0
     keepalive_timeout::Cint = 0
-    http2_settings1::Cuint = 0
-    http2_settings2::Cuint = 0
-    http2_settings3::Cuint = 0
-    http2_settings4::Cuint = 0
-    http2_settings5::Cuint = 0
-    http2_settings6::Cuint = 0
-    http2_settings7::Cuint = 0
+    http2_settings::NTuple{7,UInt32} = ntuple(i -> UInt32(0), 7)
     max_http_header_data::Cushort = 0
     max_http_header_pool::Cushort = 0
     ssl_private_key_password::Ptr{Cchar} = C_NULL
@@ -236,7 +267,7 @@ Base.@kwdef mutable struct LwsContextCreationInfo
     ssl_client_options_clear::Clong = 0
     client_ssl_ca_mem_len::Cuint = 0
     client_ssl_key_mem_len::Cuint = 0
-    provided_client_ssl_ctx::Ptr{Cint} = C_NULL
+    provided_client_ssl_ctx::Ptr{LwsSslCtxSt} = Ptr{LwsSslCtxSt}(C_NULL)
     ka_time::Cint = 0
     ka_probes::Cint = 0
     ka_interval::Cint = 0
@@ -267,11 +298,11 @@ Base.@kwdef mutable struct LwsContextCreationInfo
     username::Ptr{Cchar} = C_NULL
     groupname::Ptr{Cchar} = C_NULL
     unix_socket_perms::Ptr{Cchar} = C_NULL
-    system_ops::Ptr{Cint} = C_NULL
-    retry_and_idle_policy::Ptr{Cint} = C_NULL
-    register_notifier_list::Ptr{Ptr{Cint}} = C_NULL
+    system_ops::Ptr{LwsSystemOpts} = Ptr{LwsSystemOpts}(C_NULL)
+    retry_and_idle_policy::Ptr{LwsRetryBo} = Ptr{LwsRetryBo}(C_NULL)
+    register_notifier_list::Ptr{Ptr{LwsStateNotifyLink}} = Ptr{Ptr{LwsStateNotifyLink}}(C_NULL)
     rlimit_nofile::Cint = 0
-    early_smd_cb::Cint = 0
+    early_smd_cb::Ptr{Cvoid} = C_NULL
     early_smd_opaque::Ptr{Cvoid} = C_NULL
     early_smd_class_filter::Cint = 0
     smd_ttl_us::Cintmax_t = 0
@@ -283,8 +314,7 @@ Base.@kwdef mutable struct LwsContextCreationInfo
     http_nsc_heap_max_footprint::Csize_t = 0
     http_nsc_heap_max_items::Csize_t = 0
     http_nsc_heap_max_payload::Csize_t = 0
-    _unused1::Ptr{Cvoid} = C_NULL
-    _unused2::Ptr{Cvoid} = C_NULL
+    _unused::NTuple{2,Ptr{Cvoid}} = (Ptr{Nothing}(C_NULL), Ptr{Nothing}(C_NULL))
 end
 
 Base.@kwdef mutable struct LwsClientConnectInfo
@@ -310,7 +340,7 @@ Base.@kwdef mutable struct LwsClientConnectInfo
     alpn::Ptr{Cchar} = C_NULL
     seq::Ptr{LwsSequencer} = C_NULL
     opaque_user_data::Ptr{Cvoid} = C_NULL
-    retry_and_idle_policy::Ptr{Cint} = C_NULL
+    retry_and_idle_policy::Ptr{LwsRetryBo} = C_NULL
     manual_initial_tx_credit::Cint = 0
     sys_tls_client_cert::Cuchar = 0
     priority::Cuchar = 0
@@ -318,10 +348,7 @@ Base.@kwdef mutable struct LwsClientConnectInfo
     fi_wsi_name::Ptr{Cchar} = C_NULL
     keep_warm_secs::Cushort = 0
     log_cx::Ptr{LwsLogCx} = C_NULL
-    _unused1::Ptr{Cvoid} = C_NULL
-    _unused2::Ptr{Cvoid} = C_NULL
-    _unused3::Ptr{Cvoid} = C_NULL
-    _unused4::Ptr{Cvoid} = C_NULL
+    _unused::NTuple{4,Ptr{Cvoid}} = (Ptr{Nothing}(C_NULL), Ptr{Nothing}(C_NULL), Ptr{Nothing}(C_NULL), Ptr{Nothing}(C_NULL))
 end
 
 Base.@kwdef mutable struct LwsProcessHtmlArgs
