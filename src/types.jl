@@ -204,7 +204,7 @@ end
 struct LwsDll2
     prev::Ptr{LwsDll2}
     next::Ptr{LwsDll2}
-    owner::Ptr{Cvoid} # owner::Ptr{lws_dll2_owner}
+    owner::Ptr{Cvoid}
 end
 
 struct LwsStateNotifyLink
