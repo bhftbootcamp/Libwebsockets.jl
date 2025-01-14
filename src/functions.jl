@@ -154,7 +154,10 @@ export lws_add_http_common_headers,
     lwsl_visible,
     lwsl_wsi_get_cx,
     lwsws_get_config_globals,
-    lwsws_get_config_vhosts
+    lwsws_get_config_vhosts,
+    lws_sul_schedule,
+    lws_retry_sul_schedule,
+    lws_retry_sul_schedule_retry_wsi
 
 function lwsl_context_get_cx(cx)
     ccall((:lwsl_context_get_cx, libwebsockets), Ptr{LwsLogCx}, (Ptr{LwsContext},), cx)
@@ -774,4 +777,16 @@ end
 
 function lws_tls_session_dump_load(vh, host, port, cb_load, opq)
     ccall((:lws_tls_session_dump_load, libwebsockets), Cint, (Ptr{LwsVhost}, Ptr{Cchar}, UInt16, Ptr{Cvoid}, Ptr{Cvoid}), vh, host, port, cb_load, opq)
+end
+
+function lws_sul_schedule(ctx, tsi, sul, _cb, _us)
+    ccall((:lws_sul_schedule, libwebsockets), Cvoid, (Ptr{LwsContext}, Cint, Ptr{LwsSortedUsecList}, Ptr{Cvoid}, Cuint), ctx, tsi, sul, _cb, _us)
+end
+
+function lws_retry_sul_schedule(context, tid, sul, retry, cb, ctry)
+    ccall((:lws_retry_sul_schedule, libwebsockets), Cint, (Ptr{LwsContext}, Cint, Ptr{LwsSortedUsecList}, Ptr{LwsRetryBo}, Ptr{Cvoid}, Ptr{Cushort}), context, tid, sul, retry, cb, ctry)
+end
+
+function lws_retry_sul_schedule_retry_wsi(wsi, sul, cb, ctry)
+    ccall((:lws_retry_sul_schedule_retry_wsi, libwebsockets), Cint, (Ptr{Lws}, Ptr{LwsSortedUsecList}, Ptr{Cvoid}, Ptr{Cushort}), wsi, sul, cb, ctry)
 end

@@ -44,7 +44,8 @@ export Lws,
     LwsSystemOpts,
     LwsRetryBo,
     LwsDll2,
-    LwsStateNotifyLink
+    LwsStateNotifyLink,
+    LwsSortedUsecList
 
 struct LwsContext end
 struct LwsVhost end
@@ -192,7 +193,7 @@ struct LwsSystemOpts
     wake_latency_us::UInt32
 end
 
-struct LwsRetryBo
+mutable struct LwsRetryBo
     retry_ms_table::Ptr{UInt32}
     retry_ms_table_count::UInt16
     conceal_count::UInt16
@@ -201,16 +202,23 @@ struct LwsRetryBo
     jitter_percent::UInt8
 end
 
-struct LwsDll2
-    prev::Ptr{LwsDll2}
-    next::Ptr{LwsDll2}
-    owner::Ptr{Cvoid}
+Base.@kwdef struct LwsDll2
+    prev::Ptr{LwsDll2} = C_NULL
+    next::Ptr{LwsDll2} = C_NULL
+    owner::Ptr{Cvoid} = C_NULL
 end
 
 struct LwsStateNotifyLink
     list::LwsDll2
     notify_cb::Ptr{Cvoid}
     name::Ptr{Cchar}
+end
+
+Base.@kwdef mutable struct LwsSortedUsecList
+    list::LwsDll2 = LwsDll2()
+    us::Int64 = 0
+    cb::Ptr{Cvoid} = C_NULL
+    latency_us::UInt32 = UInt32(0)
 end
 
 Base.@kwdef mutable struct LwsContextCreationInfo
