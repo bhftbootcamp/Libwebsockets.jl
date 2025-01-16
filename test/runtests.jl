@@ -31,7 +31,7 @@ function http_get(cb::Function, addr::String, port::Int, path::String)
         LwsProtocols(C_NULL, C_NULL, 0, 0, 0, C_NULL, 0)
     ]
     ctx.port = CONTEXT_PORT_NO_LISTEN
-    ctx.protocols = Base.unsafe_convert(Ptr{LwsProtocols}, Ref(protocols[1]))
+    ctx.protocols = pointer(protocols)
     ws_ctx = lws_create_context(Ref(ctx))
 
     user = UserData(cb, false)
