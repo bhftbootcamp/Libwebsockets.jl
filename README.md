@@ -37,6 +37,8 @@ function ws_callback(wsi::Ptr{Cvoid}, reason::Cint, user::Ptr{Cvoid}, data::Ptr{
 end
 
 function ws_open(callback::Function, addr::String, port::Int, path::String)
+    lws_set_log_level(0, C_NULL)
+    
     callback_ptr = @cfunction(ws_callback, Cint, (Ptr{Cvoid}, Cint, Ptr{Cvoid}, Ptr{Cvoid}, Csize_t))
     protocols = [
         LwsProtocols(pointer("ws"), callback_ptr, 0, 0, 0, C_NULL, 0),

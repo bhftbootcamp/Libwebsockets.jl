@@ -24,6 +24,8 @@ function http_callback(wsi::Ptr{Cvoid}, reason::Cint, user::Ptr{Cvoid}, data::Pt
 end
 
 function http_get(cb::Function, addr::String, port::Int, path::String)
+    lws_set_log_level(0, C_NULL)
+    
     ctx = LwsContextCreationInfo()
     callback_function = @cfunction(http_callback, Cint, (Ptr{Cvoid}, Cint, Ptr{Cvoid}, Ptr{UInt8}, Csize_t))
     protocols = [

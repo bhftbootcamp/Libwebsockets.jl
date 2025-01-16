@@ -32,7 +32,8 @@ function ws_callback(wsi::Ptr{Cvoid}, reason::Cint, user::Ptr{Cvoid}, data::Ptr{
 end
 ```
 
-Now we can define main `ws_open` function to open and initialize WebSocket connection. It has three main steps:
+Now we can define main `ws_open` function to open and initialize WebSocket connection. 
+It is possible to set the log level using the `lws_set_log_level` function; in this example, logging is disabled. The `ws_open` function consists of three main steps:
 
 - Setup WebSocket Protocol and Callback:
 
@@ -52,6 +53,8 @@ The function then enters an infinite loop, continuously calling `lws_service` to
 
 ```julia
 function ws_open(callback::Function, addr::String, port::Int, path::String)
+    lws_set_log_level(0, C_NULL)
+    
     callback_ptr = @cfunction(ws_callback, Cint, (Ptr{Cvoid}, Cint, Ptr{Cvoid}, Ptr{Cvoid}, Csize_t))
     protocols = [
         LwsProtocols(pointer("ws"), callback_ptr, 0, 0, 0, C_NULL, 0),
