@@ -106,7 +106,7 @@ Base.@kwdef mutable struct LwsExtOptionArg
     len::Cint = 0
 end
 
-Base.@kwdef mutable struct LwsExtension
+Base.@kwdef struct LwsExtension
     name::Ptr{Cchar} = C_NULL
     callback::Ptr{Cvoid} = C_NULL
     client_offer::Ptr{Cchar} = C_NULL
