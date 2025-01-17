@@ -284,7 +284,7 @@ function lws_ext_parse_options(ext, wsi, ext_user, opts, o, len)
 end
 
 function lws_extension_callback_pm_deflate(context, ext, wsi, reason, user, in, len)
-    ccall((:lws_extension_callback_pm_deflate, libwebsockets), Cint, (Ptr{LwsContext}, Ptr{LwsExtension}, Ptr{Lws}, Cuint, Ptr{Cvoid}, Ptr{Cvoid}, Csize_t), context, ext, wsi, reason, user, in, len)
+    ccall((:lws_extension_callback_pm_deflate, libwebsockets), Cint, (Ptr{LwsContext}, Ptr{LwsExtension}, Ptr{Lws}, Cint, Ptr{Cvoid}, Ptr{Cvoid}, Csize_t), context, ext, wsi, reason, user, in, len)
 end
 
 function lws_vhost_name_to_protocol(vh, name)
