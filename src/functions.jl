@@ -157,7 +157,8 @@ export lws_add_http_common_headers,
     lwsws_get_config_vhosts,
     lws_sul_schedule,
     lws_retry_sul_schedule,
-    lws_retry_sul_schedule_retry_wsi
+    lws_retry_sul_schedule_retry_wsi,
+    lws_remaining_packet_payload
 
 function lwsl_context_get_cx(cx)
     ccall((:lwsl_context_get_cx, libwebsockets), Ptr{LwsLogCx}, (Ptr{LwsContext},), cx)
@@ -789,4 +790,8 @@ end
 
 function lws_retry_sul_schedule_retry_wsi(wsi, sul, cb, ctry)
     ccall((:lws_retry_sul_schedule_retry_wsi, libwebsockets), Cint, (Ptr{Lws}, Ptr{LwsSortedUsecList}, Ptr{Cvoid}, Ptr{Cushort}), wsi, sul, cb, ctry)
+end
+
+function lws_remaining_packet_payload(wsi)
+    return ccall((:lws_remaining_packet_payload, libwebsockets), Csize_t, (Ptr{Lws},), wsi)
 end
