@@ -74,8 +74,9 @@ end
 
 ## Useful Links
 
-1. [Libwebsockets](https://libwebsockets.org/) – detailed library docs.
-2. [libwebsockets_jll](https://github.com/JuliaBinaryWrappers/libwebsockets_jll.jl) – latest wrapper version.
+- [Libwebsockets](https://github.com/warmcat/libwebsockets) – Official library repository.  
+- [Libwebsockets Docs](https://libwebsockets.org/) – Library documentation.
+- [libwebsockets_jll](https://github.com/JuliaBinaryWrappers/libwebsockets_jll.jl) – Julia wrapper for Libwebsockets.
 
 ## Contributing
 
