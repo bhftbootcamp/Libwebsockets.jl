@@ -793,7 +793,7 @@ function lws_retry_sul_schedule_retry_wsi(wsi, sul, cb, ctry)
 end
 
 function lws_remaining_packet_payload(wsi)
-    return ccall((:lws_remaining_packet_payload, libwebsockets), Csize_t, (Ptr{Lws},), wsi)
+    ccall((:lws_remaining_packet_payload, libwebsockets), Csize_t, (Ptr{Lws},), wsi)
 end
 
 function lws_rx_flow_control(wsi, enable)
