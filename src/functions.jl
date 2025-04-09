@@ -805,5 +805,5 @@ function lws_retry_get_delay_ms(context, retry, ctry, conceal)
 end
 
 function lws_set_timer_usecs(wsi, usecs)
-    return ccall((:lws_rx_flow_control, libwebsockets), Cvoid, (Ptr{Lws}, Clong), wsi, usecs)
+    ccall((:lws_rx_flow_control, libwebsockets), Cvoid, (Ptr{Lws}, Clong), wsi, usecs)
 end
