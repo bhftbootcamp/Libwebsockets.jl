@@ -214,7 +214,7 @@ struct LwsStateNotifyLink
     name::Ptr{Cchar}
 end
 
-Base.@kwdef mutable struct LwsSortedUsecList
+Base.@kwdef struct LwsSortedUsecList
     list::LwsDll2 = LwsDll2()
     us::Int64 = 0
     cb::Ptr{Cvoid} = C_NULL

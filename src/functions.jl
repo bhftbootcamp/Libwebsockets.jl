@@ -781,7 +781,7 @@ function lws_tls_session_dump_load(vh, host, port, cb_load, opq)
 end
 
 function lws_sul_schedule(ctx, tsi, sul, _cb, _us)
-    ccall((:lws_sul_schedule, libwebsockets), Cvoid, (Ptr{LwsContext}, Cint, Ptr{LwsSortedUsecList}, Ptr{Cvoid}, Cuint), ctx, tsi, sul, _cb, _us)
+    ccall((:lws_sul_schedule, libwebsockets), Cvoid, (Ptr{LwsContext}, Cint, Ptr{LwsSortedUsecList}, Ptr{Cvoid}, Cint), ctx, tsi, sul, _cb, _us)
 end
 
 function lws_retry_sul_schedule(context, tid, sul, retry, cb, ctry)
@@ -794,4 +794,16 @@ end
 
 function lws_remaining_packet_payload(wsi)
     return ccall((:lws_remaining_packet_payload, libwebsockets), Csize_t, (Ptr{Lws},), wsi)
+end
+
+function lws_rx_flow_control(wsi, enable)
+    return ccall((:lws_rx_flow_control, libwebsockets), Cint, (Ptr{Lws}, Cchar), wsi, enable)
+end
+
+function lws_retry_get_delay_ms(context, retry, ctry, conceal)
+    return ccall((:lws_retry_get_delay_ms, libwebsockets), Cuint, (Ptr{LwsContext}, Ptr{LwsRetryBo}, Ptr{UInt16}, Ptr{Int8}), context, retry, ctry, conceal)
+end
+
+function lws_set_timer_usecs(wsi, usecs)
+    return ccall((:lws_rx_flow_control, libwebsockets), Cvoid, (Ptr{Lws}, Clong), wsi, usecs)
 end
