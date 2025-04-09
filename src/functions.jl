@@ -797,7 +797,7 @@ function lws_remaining_packet_payload(wsi)
 end
 
 function lws_rx_flow_control(wsi, enable)
-    return ccall((:lws_rx_flow_control, libwebsockets), Cint, (Ptr{Lws}, Cchar), wsi, enable)
+    ccall((:lws_rx_flow_control, libwebsockets), Cint, (Ptr{Lws}, Cchar), wsi, enable)
 end
 
 function lws_retry_get_delay_ms(context, retry, ctry, conceal)
