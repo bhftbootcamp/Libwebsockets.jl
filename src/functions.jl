@@ -184,6 +184,22 @@ function lws_log_prepend_wsi(cx, obj, p, e)
     ccall((:lws_log_prepend_wsi, libwebsockets), Cvoid, (Ptr{LwsLogCx}, Ptr{Cvoid}, Ptr{Ptr{Cchar}}, Ptr{Cchar}), cx, obj, p, e)
 end
 
+function _lws_log(filter, format, va_args...)    
+    ccall((:_lws_log, libwebsockets), Cvoid, (Cint, Ptr{Cchar}, Any...), filter, format, va_args)
+end
+
+lwsl_notice(args...) = _lws_log(LLL_ERR, args...)
+lwsl_warn(args...) = _lws_log(LLL_NOTICE, args...)
+lwsl_info(args...) = _lws_log(LLL_INFO, args...)
+lwsl_debug(args...) = _lws_log(LLL_DEBUG, args...)
+lwsl_parser(args...) = _lws_log(LLL_PARSER, args...)
+lwsl_header(args...) = _lws_log(LLL_HEADER, args...)
+lwsl_ext(args...) = _lws_log(LLL_EXT, args...)
+lwsl_client(args...) = _lws_log(LLL_CLIENT, args...)
+lwsl_latency(args...) = _lws_log(LLL_LATENCY, args...)
+lwsl_thread(args...) = _lws_log(LLL_THREAD, args...)
+lwsl_user(args...) = _lws_log(LLL_USER, args...)
+
 function lwsl_hexdump_level_cx(cx, prep, obj, hexdump_level, vbuf, len)
     ccall((:lwsl_hexdump_level_cx, libwebsockets), Cvoid, (Ptr{LwsLogCx}, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Ptr{Cvoid}, Csize_t), cx, prep, obj, hexdump_level, vbuf, len)
 end
