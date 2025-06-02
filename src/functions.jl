@@ -185,7 +185,7 @@ function lws_log_prepend_wsi(cx, obj, p, e)
 end
 
 function _lws_log(filter, format, args...)
-    ccall((:_lws_log, libwebsockets), Cvoid, (Cint, Ptr{Cchar}, Any...), filter, format, args...)
+    ccall((:_lws_log, libwebsockets), Cvoid, (Cint, Ptr{Cchar}, Any...), filter, format, args)
 end
 
 function lwsl_hexdump_level_cx(cx, prep, obj, hexdump_level, vbuf, len)

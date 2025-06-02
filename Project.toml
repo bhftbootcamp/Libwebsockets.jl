@@ -8,4 +8,3 @@ Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [compat]
 julia = "1.8"
-Printf = "1.11.0"
