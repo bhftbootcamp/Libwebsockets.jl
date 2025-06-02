@@ -1,16 +1,16 @@
 using Printf
 
 export lwsl_notice,
-        lwsl_warn,
-        lwsl_info,
-        lwsl_debug,
-        lwsl_parser,
-        lwsl_header,
-        lwsl_ext,
-        lwsl_client,
-        lwsl_latency,
-        lwsl_thread,
-        lwsl_user
+    lwsl_warn,
+    lwsl_info,
+    lwsl_debug,
+    lwsl_parser,
+    lwsl_header,
+    lwsl_ext,
+    lwsl_client,
+    lwsl_latency,
+    lwsl_thread,
+    lwsl_user
 
 function _log(filter::Int, format::AbstractString, args...)
     log_str = Printf.format(Printf.Format(format), args...)
