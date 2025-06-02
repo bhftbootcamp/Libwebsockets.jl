@@ -4,6 +4,8 @@ version = "1.0.5"
 
 [deps]
 libwebsockets_jll = "b6b84edf-6aef-5ff6-9b66-656961a84a09"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [compat]
 julia = "1.8"
+Printf = "1.11.0"
