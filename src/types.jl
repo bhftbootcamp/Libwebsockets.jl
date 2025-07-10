@@ -295,6 +295,8 @@ Base.@kwdef mutable struct LwsContextCreationInfo
     external_baggage_free_on_destroy::Ptr{Cvoid} = C_NULL
     pt_serv_buf_size::Cuint = 0
     fops::Ptr{LwsPlatFileOps} = C_NULL
+    socks_proxy_address::Ptr{Cuchar} = C_NULL
+    socks_proxy_port::Cuint = 0
     foreign_loops::Ptr{Ptr{Cvoid}} = C_NULL
     signal_cb::Ptr{Cvoid} = C_NULL
     pcontext::Ptr{Ptr{LwsContext}} = C_NULL

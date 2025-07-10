@@ -7,4 +7,5 @@ libwebsockets_jll = "b6b84edf-6aef-5ff6-9b66-656961a84a09"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [compat]
+libwebsockets_jll = "4.3.4"
 julia = "1.8"
