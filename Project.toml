@@ -1,6 +1,6 @@
 name = "Libwebsockets"
 uuid = "30a1cee6-c274-443c-b274-d8ea34e8f87d"
-version = "1.0.6"
+version = "1.1.0"
 
 [deps]
 libwebsockets_jll = "b6b84edf-6aef-5ff6-9b66-656961a84a09"
