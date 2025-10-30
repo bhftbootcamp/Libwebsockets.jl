@@ -1,164 +1,4 @@
-# functions.jl
-
-export lws_add_http_common_headers,
-    lws_add_http_header_by_name,
-    lws_add_http_header_by_token,
-    lws_add_http_header_content_length,
-    lws_add_http_header_status,
-    lws_adjust_protocol_psds,
-    lws_callback_all_protocol,
-    lws_callback_all_protocol_vhost,
-    lws_callback_all_protocol_vhost_args,
-    lws_callback_http_dummy,
-    lws_callback_on_writable,
-    lws_callback_on_writable_all_protocol,
-    lws_callback_on_writable_all_protocol_vhost,
-    lws_callback_vhost_protocols,
-    lws_callback_vhost_protocols_vhost,
-    lws_cancel_service,
-    lws_cancel_service_pt,
-    lws_chunked_html_process,
-    lws_client_connect_via_info,
-    lws_client_http_body_pending,
-    lws_client_http_multipart,
-    lws_close_reason,
-    lws_context_deprecate,
-    lws_context_destroy,
-    lws_context_is_being_destroyed,
-    lws_context_is_deprecated,
-    lws_context_user,
-    lws_create_context,
-    lws_create_vhost,
-    lws_ext_parse_options,
-    lws_extension_callback_pm_deflate,
-    lws_finalize_http_header,
-    lws_finalize_startup,
-    lws_finalize_write_http_header,
-    lws_frame_is_binary,
-    lws_get_context,
-    lws_get_mimetype,
-    lws_get_peer_write_allowance,
-    lws_get_protocol,
-    lws_get_reserved_bits,
-    lws_get_socket_fd,
-    lws_get_urlarg_by_name,
-    lws_get_urlarg_by_name_safe,
-    lws_get_vhost,
-    lws_get_vhost_by_name,
-    lws_get_vhost_iface,
-    lws_get_vhost_name,
-    lws_get_vhost_port,
-    lws_get_vhost_user,
-    lws_h2_client_stream_long_poll_rxonly,
-    lws_h2_get_peer_txcredit_estimate,
-    lws_h2_update_peer_txcredit,
-    lws_handle_POLLOUT_event,
-    lws_hdr_copy,
-    lws_hdr_copy_fragment,
-    lws_hdr_custom_copy,
-    lws_hdr_custom_length,
-    lws_hdr_custom_name_foreach,
-    lws_hdr_fragment_length,
-    lws_hdr_total_length,
-    lws_http_basic_auth_gen,
-    lws_http_check_retry_after,
-    lws_http_client_http_response,
-    lws_http_client_read,
-    lws_http_compression_apply,
-    lws_http_cookie_get,
-    lws_http_date_parse_unix,
-    lws_http_date_render_from_unix,
-    lws_http_get_uri_and_method,
-    lws_http_headers_detach,
-    lws_http_is_redirected_to_get,
-    lws_http_mark_sse,
-    lws_http_redirect,
-    lws_http_transaction_completed,
-    lws_init_vhost_client_ssl,
-    lws_is_be,
-    lws_is_final_fragment,
-    lws_is_first_fragment,
-    lws_json_dump_context,
-    lws_json_dump_vhost,
-    lws_log_emit_cx_file,
-    lws_log_prepend_context,
-    lws_log_prepend_vhost,
-    lws_log_prepend_wsi,
-    lws_log_use_cx_file,
-    lws_partial_buffered,
-    lws_plugins_destroy,
-    lws_plugins_init,
-    lws_protocol_get,
-    lws_protocol_init,
-    lws_protocol_vh_priv_get,
-    lws_protocol_vh_priv_zalloc,
-    lws_pvo_get_str,
-    lws_pvo_search,
-    lws_raw_transaction_completed,
-    lws_return_http_status,
-    lws_send_pipe_choked,
-    lws_serve_http_file,
-    lws_serve_http_file_fragment,
-    lws_service,
-    lws_service_adjust_timeout,
-    lws_service_fd,
-    lws_service_fd_tsi,
-    lws_service_tsi,
-    lws_set_extension_option,
-    lws_set_log_level,
-    lws_set_proxy,
-    lws_set_socks,
-    lws_spa_create,
-    lws_spa_create_via_info,
-    lws_spa_destroy,
-    lws_spa_finalize,
-    lws_spa_get_length,
-    lws_spa_get_string,
-    lws_spa_process,
-    lws_tls_acme_sni_cert_create,
-    lws_tls_acme_sni_csr_create,
-    lws_tls_cert_updated,
-    lws_tls_client_vhost_extra_cert_mem,
-    lws_tls_peer_cert_info,
-    lws_tls_session_dump_load,
-    lws_tls_session_dump_save,
-    lws_tls_session_is_reused,
-    lws_tls_vhost_cert_info,
-    lws_token_to_string,
-    lws_urldecode,
-    lws_urlencode,
-    lws_vh_tag,
-    lws_vhd_find_by_pvo,
-    lws_vhost_destroy,
-    lws_vhost_name_to_protocol,
-    lws_vhost_user,
-    lws_write,
-    lws_write_ws_flags,
-    lws_wsi_tag,
-    lws_wsi_tx_credit,
-    lws_x509_create,
-    lws_x509_destroy,
-    lws_x509_info,
-    lws_x509_parse_from_pem,
-    lws_x509_verify,
-    lwsl_context_get_cx,
-    lwsl_emit_stderr,
-    lwsl_emit_stderr_notimestamp,
-    lwsl_emit_syslog,
-    lwsl_hexdump,
-    lwsl_hexdump_level,
-    lwsl_hexdump_level_cx,
-    lwsl_refcount_cx,
-    lwsl_timestamp,
-    lwsl_vhost_get_cx,
-    lwsl_visible,
-    lwsl_wsi_get_cx,
-    lwsws_get_config_globals,
-    lwsws_get_config_vhosts,
-    lws_sul_schedule,
-    lws_retry_sul_schedule,
-    lws_retry_sul_schedule_retry_wsi,
-    lws_remaining_packet_payload
+#__ functions
 
 function lwsl_context_get_cx(cx)
     ccall((:lwsl_context_get_cx, libwebsockets), Ptr{LwsLogCx}, (Ptr{LwsContext},), cx)
@@ -276,8 +116,8 @@ function lws_partial_buffered(wsi)
     ccall((:lws_partial_buffered, libwebsockets), Cint, (Ptr{Lws},), wsi)
 end
 
-function lws_frame_is_binary(wsi)
-    ccall((:lws_frame_is_binary, libwebsockets), Cint, (Ptr{Lws},), wsi)
+function lws_frame_is_binary(wsi)::Bool
+    ccall((:lws_frame_is_binary, libwebsockets), Cint, (Ptr{Lws},), wsi) != 0
 end
 
 function lws_set_extension_option(wsi, ext_name, opt_name, opt_val)
@@ -810,4 +650,24 @@ end
 
 function lws_set_timer_usecs(wsi, usecs)
     ccall((:lws_rx_flow_control, libwebsockets), Cvoid, (Ptr{Lws}, Clong), wsi, usecs)
+end
+
+function lws_parse_uri(p::Ptr{Cchar}, prot::Ref{Ptr{Cchar}}, ads::Ref{Ptr{Cchar}}, port::Ref{Cint}, path::Ref{Ptr{Cchar}})
+    ccall((:lws_parse_uri, libwebsockets), Cint, (Ptr{Cchar}, Ref{Ptr{Cchar}}, Ref{Ptr{Cchar}}, Ref{Cint}, Ref{Ptr{Cchar}}), p, prot, ads, port, path)
+end
+
+function lws_get_opaque_user_data(wsi::Ptr{Lws})::Ptr{Cvoid}
+    ccall((:lws_get_opaque_user_data, libwebsockets), Ptr{Cvoid}, (Ptr{Lws},), wsi)
+end
+
+function lws_set_opaque_user_data(wsi::Ptr{Lws}, p::Ptr{Cvoid})
+    ccall((:lws_set_opaque_user_data, libwebsockets), Cvoid, (Ptr{Lws}, Ptr{Cvoid}), wsi, p)
+end
+
+function lws_uv_initloop(context::Ptr{LwsContext}, loop::Ptr{Cvoid}, tsi::Cint)::Cint
+    ccall((:lws_uv_initloop, libwebsockets), Cint, (Ptr{LwsContext}, Ptr{Cvoid}, Cint), context, loop, tsi)
+end
+
+function lws_set_protocol(wsi::Ptr{Lws}, proto::Ptr{LwsProtocols})
+    ccall((:lws_set_protocol, libwebsockets), Cvoid, (Ptr{Lws}, Ptr{LwsProtocols}), wsi, proto)
 end

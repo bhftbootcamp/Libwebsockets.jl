@@ -8,6 +8,9 @@ mutable struct UserData
     done::Bool
 end
 
+const CONTEXT_PORT_NO_LISTEN = -1
+const CONTEXT_PORT_NO_LISTEN_SERVER = -2
+
 function http_callback(wsi::Ptr{Cvoid}, reason::Cint, user::Ptr{Cvoid}, data::Ptr{UInt8}, len::Csize_t)::Cint 
     if reason == LWS_CALLBACK_RECEIVE_CLIENT_HTTP_READ && user != C_NULL
         user_ctx = unsafe_pointer_to_objref(user)
