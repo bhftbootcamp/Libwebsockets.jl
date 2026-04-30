@@ -1,7 +1,7 @@
-/.github/ @maxfadson @gryumov 
-/src/ @maxfadson @gryumov 
-/test/ @maxfadson @gryumov 
-/.JuliaFormatter.toml @maxfadson @gryumov 
-/.gitignore @maxfadson @gryumov 
-/LICENSE @maxfadson @gryumov 
-/Project.toml @maxfadson @gryumov 
+/.github/ @gryumov
+/src/ @gryumov
+/test/ @gryumov
+/.JuliaFormatter.toml @gryumov
+/.gitignore @gryumov
+/LICENSE @gryumov
+/Project.toml @gryumov
