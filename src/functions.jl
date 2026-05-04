@@ -37,7 +37,7 @@ function lwsl_hexdump_level(level, vbuf, len)
 end
 
 function lws_service_tsi(context, timeout_ms, tsi)
-    ccall((:lws_service_tsi, libwebsockets), Cint, (Ptr{LwsContext}, Cint, Cint), context, timeout_ms, tsi)
+    @threadcall((:lws_service_tsi, libwebsockets), Cint, (Ptr{LwsContext}, Cint, Cint), context, timeout_ms, tsi)
 end
 
 function lws_write(wsi, buf, len, protocol)
@@ -185,7 +185,7 @@ function lws_plugins_destroy(pplugin, each, each_user)
 end
 
 function lws_create_context(info)
-    ccall((:lws_create_context, libwebsockets), Ptr{LwsContext}, (Ptr{LwsContextCreationInfo},), info)
+    @threadcall((:lws_create_context, libwebsockets), Ptr{LwsContext}, (Ptr{LwsContextCreationInfo},), info)
 end
 
 function lws_context_destroy(context)
@@ -493,7 +493,7 @@ function lws_spa_destroy(spa)
 end
 
 function lws_service(context, timeout_ms)
-    ccall((:lws_service, libwebsockets), Cint, (Ptr{LwsContext}, Cint), context, timeout_ms)
+    @threadcall((:lws_service, libwebsockets), Cint, (Ptr{LwsContext}, Cint), context, timeout_ms)
 end
 
 function lws_cancel_service_pt(wsi)

@@ -32,8 +32,8 @@ function http_get(cb::Function, addr::String, port::Int, path::String)
     ctx = LwsContextCreationInfo()
     callback_function = @cfunction(http_callback, Cint, (Ptr{Cvoid}, Cint, Ptr{Cvoid}, Ptr{UInt8}, Csize_t))
     protocols = [
-        LwsProtocols(pointer("http"), callback_function, 0, 0, 0, C_NULL, 0),
-        LwsProtocols(C_NULL, C_NULL, 0, 0, 0, C_NULL, 0)
+        LwsProtocols(name = pointer("http"), callback = callback_function),
+        LwsProtocols(),
     ]
     ctx.port = CONTEXT_PORT_NO_LISTEN
     ctx.protocols = pointer(protocols)

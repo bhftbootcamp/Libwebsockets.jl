@@ -331,3 +331,20 @@ const LWS_AHH_FLAG_NO_SERVER_NAME = 1 << 30
 const LWS_TXCR_US_TO_PEER = 0
 const LWS_TXCR_PEER_TO_US = 1
 
+const LWSMPRO_HTTP = 0 % UInt32
+const LWSMPRO_HTTPS = 1 % UInt32
+const LWSMPRO_FILE = 2 % UInt32
+const LWSMPRO_CGI = 3 % UInt32
+const LWSMPRO_REDIR_HTTP = 4 % UInt32
+const LWSMPRO_REDIR_HTTPS = 5 % UInt32
+const LWSMPRO_CALLBACK = 6 % UInt32
+
+const WSI_TOKEN_GET_URI = 0 % Cuint
+const WSI_TOKEN_POST_URI = 1 % Cuint
+const WSI_TOKEN_OPTIONS_URI = 2 % Cuint
+const WSI_TOKEN_PATCH_URI = 73 % Cuint
+const WSI_TOKEN_PUT_URI = 74 % Cuint
+const WSI_TOKEN_DELETE_URI = 75 % Cuint
+const WSI_TOKEN_HEAD_URI = 82 % Cuint
+const WSI_TOKEN_HTTP_CONTENT_LENGTH = 27 % Cuint
+const WSI_TOKEN_HTTP_URI_ARGS = 76 % Cuint

@@ -1,6 +1,6 @@
 name = "Libwebsockets"
 uuid = "30a1cee6-c274-443c-b274-d8ea34e8f87d"
-version = "2.0.0"
+version = "2.1.0"
 
 [deps]
 libwebsockets_jll = "b6b84edf-6aef-5ff6-9b66-656961a84a09"
@@ -8,4 +8,4 @@ Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [compat]
 libwebsockets_jll = "4.4.0"
-julia = "1.8"
+julia = "1.9"
