@@ -6,7 +6,7 @@
 [![Coverage](https://codecov.io/gh/bhftbootcamp/Libwebsockets.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/bhftbootcamp/Libwebsockets.jl)
 [![Registry](https://img.shields.io/badge/registry-General-4063d8)](https://github.com/JuliaRegistries/General)
 
-Libwebsockets is a Julia wrapper for the [libwebsockets](https://libwebsockets.org/) library, providing verstile tooling for setting up WebSocket and HTTP clients and servers, managing SSL connections, and handling data efficiently in a variety of applications.
+Libwebsockets is a Julia wrapper for the [libwebsockets](https://libwebsockets.org/) library, providing versatile tooling for setting up WebSocket and HTTP clients and servers, managing SSL connections, and handling data efficiently in a variety of applications.
 
 ## Installation
 
@@ -84,7 +84,7 @@ end
 ## Useful Links
 
 - [Libwebsockets](https://github.com/warmcat/libwebsockets) – Official library repository.  
-- [libwebsockets_org](https://libwebsockets.org/) – Library documentation.
+- [libwebsockets.org](https://libwebsockets.org/) – Library documentation.
 - [libwebsockets_jll](https://github.com/JuliaBinaryWrappers/libwebsockets_jll.jl) – Julia wrapper for Libwebsockets.
 
 ## Contributing
