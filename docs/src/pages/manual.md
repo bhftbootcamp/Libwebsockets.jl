@@ -57,8 +57,8 @@ function ws_open(callback::Function, addr::String, port::Int, path::String)
     
     callback_ptr = @cfunction(ws_callback, Cint, (Ptr{Cvoid}, Cint, Ptr{Cvoid}, Ptr{Cvoid}, Csize_t))
     protocols = [
-        LwsProtocols(pointer("ws"), callback_ptr, 0, 0, 0, C_NULL, 0),
-        LwsProtocols(C_NULL, C_NULL, 0, 0, 0, C_NULL, 0)
+        LwsProtocols(name = pointer("ws"), callback = callback_ptr),
+        LwsProtocols()
     ]
     user = UserData(callback)
 
